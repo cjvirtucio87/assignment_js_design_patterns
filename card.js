@@ -19,7 +19,7 @@ var model = {
   faceDown: "black",
 };
 
-// Presents cards (modifying DOM).
+// Presents cards.
 var view = {
   init: function(cardsData) {
     this.cacheContainer();
@@ -29,11 +29,19 @@ var view = {
     this.cacheCards();
     console.log($cards);
   },
+  // Cacheing DOM objects.
   cacheContainer: function() {
     $container = $('.container');
   },
   cacheCards: function() {
     $cards = $('div.card');
+  },
+
+  // Adding listeners.
+  addCardClickHandler: function() {
+    $cards.on('click', function(ev) {
+      $(this).addClass('red');
+    });
   }
 };
 
@@ -43,6 +51,11 @@ var controller = {
   init: function() {
     model.init();
     view.init(model.cards);
+    controller.preparingView();
+  },
+
+  preparingView: function() {
+    view.addCardClickHandler();
   }
 
 };
