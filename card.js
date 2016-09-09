@@ -11,6 +11,7 @@ var model = {
   cards: [],
   faceDown: "black",
   hasMatch: false,
+  clickedCards: [],
 
   // Modifying state.
   createCards: function() {
@@ -20,16 +21,16 @@ var model = {
     }
   },
 
-  storeCurrentMatch: function(color) {
-    this.currentMatch = color;
+  addClickedCard: function(color) {
+    this.clickedCards.push(color);
   },
 
   checkCurrentStoredColor: function(color) {
-    if (this.currentMatch === color) {
-      this.hasMatch = true;
-    } else {
-      // Toggle hasMatch and reset memorized currentMatch.
-      this.hasMatch = false;
+    debugger;
+    if (this.clickedCards.length === 2) {
+      if (this.clickedCards.pop() === this.clickedCards.pop()) {
+        this.hasMatch = true;
+      }
     }
   }
 };
@@ -85,9 +86,11 @@ var controller = {
   },
 
   sendColor: function(color) {
-    if (model.currentMatch === "") {
-      model.storeCurrentMatch(color);
-    }
+    model.addClickedCard(color);
+    // if (model.currentMatch === "") {
+    //   model.storeCurrentMatch(color);
+    // }
+    // model.toggleClickStatus();
     // else {
     //   model.curreStoreCurrentMatch('');
     // }
@@ -102,9 +105,9 @@ var controller = {
   },
 
   leaveColorDisplayed: function(color) {
-    if (!model.hasMatch) {
+    if (!model.hasMatch && model.clickedCards.length == 2) {
       view.removeColors(color, model.currentMatch);
-      model.currentMatch = "";
+      model.hasMatch = false;
     }
   }
 
