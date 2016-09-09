@@ -36,7 +36,7 @@ var model = {
 
 // Presents cards.
 // Have controller call a view render()
-// Click handler 
+// Click handler
 var view = {
   init: function(cardsData) {
     this.cacheContainer();
@@ -44,7 +44,6 @@ var view = {
       $container.append("<div class='card'" + "id=" + card + " </div>");
     });
     this.cacheCards();
-    console.log($cards);
   },
   // Cacheing DOM objects.
   cacheContainer: function() {
@@ -89,6 +88,9 @@ var controller = {
     if (model.currentMatch === "") {
       model.storeCurrentMatch(color);
     }
+    // else {
+    //   model.curreStoreCurrentMatch('');
+    // }
   },
 
   checkColor: function(color) {
@@ -103,9 +105,6 @@ var controller = {
     if (!model.hasMatch) {
       view.removeColors(color, model.currentMatch);
       model.currentMatch = "";
-    }
-    else {
-      model.totalMatches += 1;
     }
   }
 
