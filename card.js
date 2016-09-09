@@ -22,9 +22,18 @@ var model = {
 // Presents cards (modifying DOM).
 var view = {
   init: function(cardsData) {
+    this.cacheContainer();
     cardsData.forEach(function(card){
-      $('.container').append("<div class='card'" + "id=" + "card-" + card + " </div>");
+      $container.append("<div class='card'" + "id=" + "card-" + card + " </div>");
     });
+    this.cacheCards();
+    console.log($cards);
+  },
+  cacheContainer: function() {
+    $container = $('.container');
+  },
+  cacheCards: function() {
+    $cards = $('div.card');
   }
 };
 
