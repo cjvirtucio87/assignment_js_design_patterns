@@ -17,7 +17,11 @@ var model = {
 }
 
 var view = {
-
+  init: function() {
+    model.cards.forEach(function(card){
+      $('.container').append("<div class='card' id")
+    });
+  }
 }
 
 
