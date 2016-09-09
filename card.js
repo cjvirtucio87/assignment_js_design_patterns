@@ -35,6 +35,8 @@ var model = {
 };
 
 // Presents cards.
+// Have controller call a view render()
+// Click handler 
 var view = {
   init: function(cardsData) {
     this.cacheContainer();
@@ -57,15 +59,16 @@ var view = {
     $cards.on('click', function(ev) {
       $(this).addClass(this.id);
       controller.sendColor(this.id);
-      debugger;
       controller.checkColor(this.id);
       controller.leaveColorDisplayed(this.id);
     });
   },
 
   removeColors: function(color, currentMatch) {
-    $cards.find("#" + currentMatch).removeClass(currentMatch);
-    $cards.find("#" + color).removeClass(color);
+    // $cards.find("#" + currentMatch).removeClass(currentMatch);
+    // $cards.find("#" + color).removeClass(color);
+    $(".container").find("div").removeClass(color);
+    $(".container").find("div").removeClass(currentMatch);
   }
 };
 
@@ -100,6 +103,9 @@ var controller = {
     if (!model.hasMatch) {
       view.removeColors(color, model.currentMatch);
       model.currentMatch = "";
+    }
+    else {
+      model.totalMatches += 1;
     }
   }
 
