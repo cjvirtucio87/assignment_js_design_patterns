@@ -3,6 +3,14 @@ var model = {
   init:  function(){
     this.createCards();
   },
+
+    // Properties.
+  totalMatches: 0,
+  currentMatch: "",
+  colors: ["red", "yellow"],
+  cards: [],
+  faceDown: "black",
+
   // Modifying state.
   createCards: function() {
     for(var i = 0; i < 2; i++) {
@@ -11,20 +19,21 @@ var model = {
     }
   },
 
-  // Properties.
-  totalMatches: 0,
-  currentMatch: 0,
-  colors: ["red", "yellow"],
-  cards: [],
-  faceDown: "black",
-};
+  storeCurrentMatch: function(color) {
+    this.currentMatch = color;
+  },
+
+  checkCurrentStoredColor: function(color) {
+    this.currentMatch === color;
+  }
+}
 
 // Presents cards.
 var view = {
   init: function(cardsData) {
     this.cacheContainer();
     cardsData.forEach(function(card){
-      $container.append("<div class='card'" + "id=" + "card-" + card + " </div>");
+      $container.append("<div class='card'" + "id=" + card + " </div>");
     });
     this.cacheCards();
     console.log($cards);
@@ -40,8 +49,16 @@ var view = {
   // Adding listeners.
   addCardClickHandler: function() {
     $cards.on('click', function(ev) {
-      $(this).addClass('red');
+      $(this).addClass(this.id);
+      controller.sendColor(this.id);
+      controller.checkColor(this.id);
     });
+  },
+
+  removeColors: function(color, currentMatch) {
+    debugger
+    $cards.find("#" + currentMatch).removeClass(currentMatch);
+    $cards.find("#" + color).removeClass(color);
   }
 };
 
@@ -56,6 +73,25 @@ var controller = {
 
   preparingView: function() {
     view.addCardClickHandler();
+  },
+
+  sendColor: function(color) {
+    if (model.currentMatch === "") {
+      model.storeCurrentMatch(color);
+    }
+  },
+
+  checkColor: function(color) {
+    if (model.currentMatch != "") {
+      model.currentMatch = "";
+      return model.checkCurrentStoredColor(color);
+    }
+  },
+
+  leaveColorDisplayed: function(color) {
+    if (!checkColor(color)) {
+      view.removeColors(color, model.currentMatch);
+    }
   }
 
 };
