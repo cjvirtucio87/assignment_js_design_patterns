@@ -7,11 +7,12 @@ var model = {
     // Properties.
   totalMatches: 0,
   currentMatch: "",
-  colors: ["red", "yellow"],
+  colors: ["red", "yellow", "blue"],
   cards: [],
   faceDown: "black",
   hasMatch: false,
   clickedCards: [],
+
 
   // Modifying state.
   createCards: function() {
@@ -26,9 +27,9 @@ var model = {
   },
 
   checkCurrentStoredColor: function(color) {
-    debugger;
+    //debugger;
     if (this.clickedCards.length === 2) {
-      if (this.clickedCards.pop() === this.clickedCards.pop()) {
+      if (this.clickedCards[0] === this.clickedCards[1]) {
         this.hasMatch = true;
       }
     }
@@ -67,8 +68,10 @@ var view = {
   removeColors: function(color, currentMatch) {
     // $cards.find("#" + currentMatch).removeClass(currentMatch);
     // $cards.find("#" + color).removeClass(color);
-    $(".container").find("div").removeClass(color);
-    $(".container").find("div").removeClass(currentMatch);
+    setTimeout(function(){
+      $(".container").find("div").removeClass(color);
+      $(".container").find("div").removeClass(currentMatch);
+       }, 1000);
   }
 };
 
@@ -106,7 +109,8 @@ var controller = {
 
   leaveColorDisplayed: function(color) {
     if (!model.hasMatch && model.clickedCards.length == 2) {
-      view.removeColors(color, model.currentMatch);
+      view.removeColors(model.clickedCards.pop(),
+        model.clickedCards.pop());
       model.hasMatch = false;
     }
   }
