@@ -60,11 +60,12 @@ var view = {
   addCardClickHandler: function() {
     $cards.on('click', function(ev) {
       $(this).addClass(this.id);
-      console.log(controller.compareDivs(this));
-      controller.changeLastClicked(this);
-      controller.sendColor(this.id);
-      controller.checkColor(this.id);
-      controller.leaveColorDisplayed(this.id);
+      if (!controller.compareDivs(this)) {
+        controller.changeLastClicked(this);
+        controller.sendColor(this.id);
+        controller.checkColor(this.id);
+        controller.leaveColorDisplayed(this.id);
+      }
     });
   },
 
