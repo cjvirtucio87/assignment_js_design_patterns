@@ -1,6 +1,6 @@
 .container {
-  height: 260px;
-  width: 260px;
+  height: 1000px;
+  width: 1000px;
 }
 
 .card {
@@ -18,4 +18,24 @@
 
 .yellow {
   background-color: yellow;
+}
+
+.green {
+  background-color: green;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.black {
+  background-color: black;
+}
+
+.purple {
+  background-color: purple;
+}
+
+.pink {
+  background-color: pink;
 }

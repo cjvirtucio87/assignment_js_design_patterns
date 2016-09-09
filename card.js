@@ -1,25 +1,47 @@
 // Holds state regarding the cards.
 var model = {
   init:  function(){
+    this.askForGrid();
     this.createCards();
   },
 
     // Properties.
   totalMatches: 0,
   currentMatch: "",
-  colors: ["red", "yellow", "blue"],
+  colors: ["red", "yellow", "green", "blue", "black", "purple", "pink"],
   cards: [],
   faceDown: "black",
   hasMatch: false,
   clickedCards: [],
   lastClicked: '',
+  grid: 0,
 
+  askForGrid: function() {
+    this.grid = parseInt(prompt("How many squares per row do you want?"));
+    console.log(this.grid)
+    if (this.grid > 7) {
+      this.grid = 7;
+    }
+  },
 
   // Modifying state.
   createCards: function() {
-    for(var i = 0; i < 2; i++) {
-      this.cards.push(this.colors[i]);
-      this.cards.push(this.colors[i]);
+    console.log(this.grid);
+    for(var j = 0; j < this.grid; j++) {
+
+      this.cards.push(this.colors[j]);
+      this.cards.push(this.colors[j]);
+    }
+    this.shuffle(this.cards);
+  },
+
+  shuffle: function(a) {
+    var j, x, i;
+    for (i = a.length; i; i--) {
+        j = Math.floor(Math.random() * i);
+        x = a[i - 1];
+        a[i - 1] = a[j];
+        a[j] = x;
     }
   },
 
@@ -48,6 +70,10 @@ var view = {
     });
     this.cacheCards();
   },
+
+  // makeGrid: function(grid) {
+  //   $container()
+  // }
   // Cacheing DOM objects.
   cacheContainer: function() {
     $container = $('.container');
@@ -84,6 +110,7 @@ var controller = {
 
   init: function() {
     model.init();
+    //view.makeGrid(model.grid);
     view.init(model.cards);
     controller.preparingView();
   },
