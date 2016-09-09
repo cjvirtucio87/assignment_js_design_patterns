@@ -12,6 +12,7 @@ var model = {
   faceDown: "black",
   hasMatch: false,
   clickedCards: [],
+  lastClicked: '',
 
 
   // Modifying state.
@@ -59,6 +60,8 @@ var view = {
   addCardClickHandler: function() {
     $cards.on('click', function(ev) {
       $(this).addClass(this.id);
+      console.log(controller.compareDivs(this));
+      controller.changeLastClicked(this);
       controller.sendColor(this.id);
       controller.checkColor(this.id);
       controller.leaveColorDisplayed(this.id);
@@ -112,6 +115,18 @@ var controller = {
       view.removeColors(model.clickedCards.pop(),
         model.clickedCards.pop());
       model.hasMatch = false;
+    }
+  },
+
+  changeLastClicked: function(div) {
+    model.lastClicked = div;
+  },
+
+  compareDivs: function(div) {
+    if (model.lastClicked !== '') {
+      return model.lastClicked === div;
+    } else {
+      return false;
     }
   }
 
