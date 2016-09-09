@@ -18,7 +18,6 @@ var model = {
 
   askForGrid: function() {
     this.grid = parseInt(prompt("How many squares per row do you want?"));
-    console.log(this.grid)
     if (this.grid > 7) {
       this.grid = 7;
     }
